@@ -15,7 +15,6 @@ nosetest tests
 ```
 ./bash.sh
 ```
-OR
 To generate codecoverage using unittest framework on sonarqube dashboard
 ```
 coverage run -m unittest discover -s "$servicesPath" -p "*.py"
