@@ -17,7 +17,7 @@ nosetest tests
 ```
 To generate codecoverage report for unittest framework on sonarqube dashboard
 ```
-coverage run -m unittest discover -s "$servicesPath" -p "*.py"
+coverage run -m unittest discover -s tests -p "*.py"
 coverage report
 coverage xml
 sonar-scanner
