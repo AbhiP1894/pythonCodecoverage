@@ -14,3 +14,15 @@ nosetest tests
 3. run bash file
 ```
 ./bash.sh
+```
+OR
+To generate codecoverage using unittest framework on sonarqube dashboard
+```
+coverage run -m unittest discover -s "$servicesPath" -p "*.py"
+coverage report
+coverage xml
+sonar-scanner
+```
+
+
+
