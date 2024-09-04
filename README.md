@@ -11,3 +11,6 @@ pip install -r requirements.txt
 ```
 nosetest tests
 ```
+3. run bash file
+```
+./bash.sh
