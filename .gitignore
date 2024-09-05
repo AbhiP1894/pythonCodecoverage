@@ -99,3 +99,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+#sonar-report
+.scannerwork
+
+#sonar-properties file
+/sonar-project.properties

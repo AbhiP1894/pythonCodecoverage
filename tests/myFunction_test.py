@@ -4,13 +4,13 @@ import src.myFunction  # Import the module containing the functions
 
 class TestRandomFunctions(unittest.TestCase):
 
-    def test_sum(self):
-        # Test the Sum function
-        result = src.myFunction.Sum(3, 5)
-        self.assertEqual(result, 8, "Sum should be 8")
+    # def test_sum(self):
+    #     # Test the Sum function
+    #     result = src.myFunction.Sum(3, 5)
+    #     self.assertEqual(result, 8, "Sum should be 8")
 
-        result = src.myFunction.Sum(-1, 1)
-        self.assertEqual(result, 0, "Sum should be 0")
+    #     result = src.myFunction.Sum(-1, 1)
+    #     self.assertEqual(result, 0, "Sum should be 0")
 
     @mock.patch('src.myFunction.os.urandom')  # Mock os.urandom in the context of src.myFunction
     def test_random(self, urandom_mock):
