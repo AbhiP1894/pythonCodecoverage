@@ -1,5 +1,6 @@
 # Python-Unittest-Code-Coverage-Example
 
+To render codecoverage report for unittest framework on sonarqube dashboard byscript
 
 **Step:**
 
@@ -15,7 +16,10 @@ nosetest tests
 ```
 ./bash.sh
 ```
-To generate codecoverage report for unittest framework on sonarqube dashboard
+
+OR
+
+To render codecoverage report for unittest framework on sonarqube dashboard byscript by manually
 ```
 coverage run -m unittest discover -s tests -p "*.py"
 coverage report
