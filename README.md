@@ -1,6 +1,6 @@
 # Python-Unittest-Code-Coverage-Example
 
-To render codecoverage report for unittest framework on sonarqube dashboard byscript
+To render codecoverage report of python code for unittest framework on sonarqube dashboard by script
 
 **Step:**
 
@@ -19,7 +19,7 @@ nosetest tests
 
 OR
 
-To render codecoverage report for unittest framework on sonarqube dashboard byscript by manually
+To render codecoverage report of python code for unittest framework on sonarqube dashboard byscript by manually
 ```
 coverage run -m unittest discover -s tests -p "*.py"
 coverage report
