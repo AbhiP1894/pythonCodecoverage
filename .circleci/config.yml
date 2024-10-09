@@ -46,7 +46,7 @@ jobs:
       - store_artifacts:
           path: test-results  # Store the test results as artifacts as well
       - store_artifacts:
-          path: coverage.html  # Store the HTML coverage report as an artifact
+          path: htmlcov/index.html # Store the HTML coverage report as an artifact
 
   deploy:
     docker:
