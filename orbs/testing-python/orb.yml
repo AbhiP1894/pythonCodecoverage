@@ -1,0 +1,19 @@
+version: 2.1
+
+description: "Orb for running Python unit tests"
+
+commands:
+  run-tests:
+    description: "Run Python unit tests"
+    parameters:
+      test_dir:
+        type: string
+        default: "tests"
+        description: "Directory containing the test files"
+    steps:
+      - run:
+          name: Run Unit Tests
+          command: |
+            python -m unittest discover -s tests -p "*.py" -v | tee test-results/unittest_results.log
+      - store_test_results:
+          path: test-results
