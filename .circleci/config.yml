@@ -18,7 +18,10 @@ jobs:
           command: python -m build  # This will create a distribution under `dist/`
       - store_artifacts:
           path: dist  # Store the built package as an artifact
-
+          
+       - run:
+          name: Create Test Results Directory
+          command: mkdir -p test-results  # Create test-results directory
   test-python:
     docker:
       - image: cimg/python:3.8-node
