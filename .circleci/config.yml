@@ -39,6 +39,11 @@ jobs:
           command: |
             coverage xml
             coverage html
+      - run:
+          name: Generate Test Results
+          command: |
+            python -m unittest discover -s tests -p "*.py" -v | tee test-results/unittest_results.log  # Save unittest output
+            
       - store_test_results:
           path: /home/circleci/project/test-results  # Store test results
       - store_artifacts:
