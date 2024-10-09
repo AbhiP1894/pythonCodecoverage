@@ -32,7 +32,9 @@ jobs:
           name: Run Unittest
           command: python -m unittest discover -s tests -p "*.py"  # Adjust according to your test folder structure
       - store_test_results:
-          path: test-results  # You need to specify a path to store test results
+          path: test-results  # Store test results
+      - store_artifacts:
+          path: test-results  # Store the test results as artifacts as well
 
   deploy:
     docker:
