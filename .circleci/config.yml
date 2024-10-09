@@ -4,6 +4,21 @@ orbs:
   python: circleci/python@2
 
 jobs:
+  build-python:
+    docker:
+      - image: cimg/python:3.8-node
+    steps:
+      - checkout
+      - python/install-packages
+      - run:
+          name: Install Build Dependencies
+          command: pip install build  # This installs the `build` tool to create packages
+      - run:
+          name: Build Package
+          command: python -m build  # This will create a distribution under `dist/`
+      - store_artifacts:
+          path: dist  # Store the built package as an artifact
+
   test-python:
     docker:
       - image: cimg/python:3.8-node
@@ -30,7 +45,9 @@ jobs:
 workflows:
   build-and-test:
     jobs:
+      - build-python
       - test-python
     # - deploy:
     #     requires:
+    #       - build-python
     #       - test-python
