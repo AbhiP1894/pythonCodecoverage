@@ -56,14 +56,6 @@ jobs:
       - store_artifacts:
           path: htmlcov  # Store the entire HTML coverage report directory as an artifact
 
-  deploy:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
-
 workflows:
   build-and-test:
     jobs:
