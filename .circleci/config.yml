@@ -2,7 +2,8 @@ version: 2.1
 
 orbs:
   python: circleci/python@2
-  build: AbhiP1894/pythonCodecoverage/orbs/build-python/orb.yml
+  build: orbs/build-python/orb.yml
+  testing: orbs/testing-python/orb.yml 
 
 
 jobs:
@@ -18,14 +19,9 @@ jobs:
     steps:
       - checkout
       - python/install-packages
-      - run:
-          name: Create Test Results Directory
-          command: mkdir -p test-results  # Create test-results directory
-      - run:
-          name: Install Test and Coverage Dependencies
-          command: |
-            pip install -r requirements.txt  # Ensure you have a requirements file
-            pip install coverage  # Install coverage.py to track test coverage
+      - testing/run-tests:
+          test_dir: tests  # Specify the test directory if needed
+          
       - run:
           name: Run Unittest with Coverage
           command: |
