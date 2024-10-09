@@ -40,7 +40,7 @@ jobs:
             coverage xml
             coverage html
       - store_test_results:
-          path: test-results  # Store test results
+          path: /home/circleci/project/test-results  # Store test results
       - store_artifacts:
           path: coverage.xml  # Store the coverage report as an artifact
       - store_artifacts:
