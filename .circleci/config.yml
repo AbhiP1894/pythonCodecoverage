@@ -45,7 +45,7 @@ jobs:
             python -m unittest discover -s tests -p "*.py" -v | tee test-results/unittest_results.log  # Save unittest output
             
       - store_test_results:
-          path: /home/circleci/project/test-results  # Store test results
+          path: test-results  # Store test results
       - store_artifacts:
           path: coverage.xml  # Store the coverage report as an artifact
       - store_artifacts:
