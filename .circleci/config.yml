@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@2
-  build: orbs/build-python/orb.yml
+  build: ../../orbs/build-python/orb.yml
 
 
 jobs:
