@@ -26,15 +26,27 @@ jobs:
       - checkout
       - python/install-packages
       - run:
-          name: Install Test Dependencies
-          command: pip install -r requirements.txt  # Ensure you have a requirements file
+          name: Install Test and Coverage Dependencies
+          command: |
+            pip install -r requirements.txt  # Ensure you have a requirements file
+            pip install coverage  # Install coverage.py to track test coverage
       - run:
-          name: Run Unittest
-          command: python -m unittest discover -s tests -p "*.py"  # Adjust according to your test folder structure
+          name: Run Unittest with Coverage
+          command: |
+            coverage run --source=<your_package> -m unittest discover -s tests -p "*.py"  # Adjust <your_package> to your package's name
+      - run:
+          name: Generate Coverage Report
+          command: |
+            coverage xml -o coverage.xml  # Generate XML report for later analysis
+            coverage html -d coverage_html  # Generate HTML report in coverage_html directory
       - store_test_results:
           path: test-results  # Store test results
       - store_artifacts:
+          path: coverage.xml  # Store the coverage report as an artifact
+      - store_artifacts:
           path: test-results  # Store the test results as artifacts as well
+      - store_artifacts:
+          path: coverage_html  # Store the HTML coverage report as an artifact
 
   deploy:
     docker:
