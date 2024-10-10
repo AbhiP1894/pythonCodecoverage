@@ -2,19 +2,9 @@ version: 2.1
 
 orbs:
   python: circleci/python@2
-  po: fernfernfern/python-orb@0.0.10
+  po: fernfernfern/python-orb@0.0.10  # External orb for Python jobs
   #build: orbs/build-python/orb.yml
   #testing: orbs/testing-python/orb.yml 
-
-
-version: 2.1
-workflows:
-  test:
-    jobs:
-      - po/python-job:
-          test-steps: python -m pytest -v -s
-          with-pip: true
-
 
 jobs:
   build-python:
@@ -32,43 +22,25 @@ jobs:
       - store_artifacts:
           path: dist  # Store the built package as an artifact
 
-- po/python-job:
-          test-steps: python -m pytest -v -s
-          with-pip: true
-     
   test-python:
     docker:
       - image: cimg/python:3.8-node
     steps:
       - checkout
       - python/install-packages
-      - testing/run-tests:
-          test_dir: tests  # Specify the test directory if needed
-          
-      - run:
-          name: Run Unittest with Coverage
-          command: |
-            coverage run -m unittest discover -s tests -p "*.py" 
-      - run:
-          name: Generate Coverage Report
-          command: |
+      - po/python-job:
+          test-steps: |
+            pip install coverage
+            coverage run -m unittest discover -s tests -p "*.py"  # Run tests with coverage
             coverage xml
             coverage html
-          
-     # - run:
-      #    name: Generate Test Results
-       #   command: |
-        #    python -m unittest discover -s tests -p "*.py" -v | tee test-results/unittest_results.log  # Save unittest output
-    - po/python-job:
-        test-steps:  python -m unittest discover -s tests -p "*.py"
-        with-pip: true
-          
+          with-pip: true
+
       - store_test_results:
           path: test-results  # Store test results
+
       - store_artifacts:
           path: coverage.xml  # Store the coverage report as an artifact
-      - store_artifacts:
-          path: test-results  # Store the test results as artifacts as well
       - store_artifacts:
           path: htmlcov  # Store the entire HTML coverage report directory as an artifact
 
@@ -77,7 +49,3 @@ workflows:
     jobs:
       - build-python
       - test-python
-    # - deploy:
-    #     requires:
-    #       - build-python
-    #       - test-python
