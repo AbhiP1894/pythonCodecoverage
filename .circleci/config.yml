@@ -2,8 +2,18 @@ version: 2.1
 
 orbs:
   python: circleci/python@2
-  build: orbs/build-python/orb.yml
-  testing: orbs/testing-python/orb.yml 
+  po: fernfernfern/python-orb@0.0.10
+  #build: orbs/build-python/orb.yml
+  #testing: orbs/testing-python/orb.yml 
+
+
+version: 2.1
+workflows:
+  test:
+    jobs:
+      - po/python-job:
+          test-steps: python -m pytest -v -s
+          with-pip: true
 
 
 jobs:
@@ -11,7 +21,20 @@ jobs:
     docker:
       - image: cimg/python:3.8-node
     steps:
-      - build/build-package: {} 
+      - checkout
+      - python/install-packages
+      - run:
+          name: Install Build Dependencies
+          command: pip install build  # This installs the build tool to create packages
+      - run:
+          name: Build Package
+          command: python -m build  # This will create a distribution under dist/
+      - store_artifacts:
+          path: dist  # Store the built package as an artifact
+
+- po/python-job:
+          test-steps: python -m pytest -v -s
+          with-pip: true
      
   test-python:
     docker:
@@ -31,11 +54,15 @@ jobs:
           command: |
             coverage xml
             coverage html
-      - run:
-          name: Generate Test Results
-          command: |
-            python -m unittest discover -s tests -p "*.py" -v | tee test-results/unittest_results.log  # Save unittest output
-            
+          
+     # - run:
+      #    name: Generate Test Results
+       #   command: |
+        #    python -m unittest discover -s tests -p "*.py" -v | tee test-results/unittest_results.log  # Save unittest output
+    - po/python-job:
+        test-steps:  python -m unittest discover -s tests -p "*.py"
+        with-pip: true
+          
       - store_test_results:
           path: test-results  # Store test results
       - store_artifacts:
