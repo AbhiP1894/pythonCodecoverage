@@ -1,5 +1,4 @@
 version: 2.1
-
 orbs:
   python: circleci/python@2
   po: fernfernfern/python-orb@0.0.10  # External orb for Python jobs
