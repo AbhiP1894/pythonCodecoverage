@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
-  python: circleci/python@2
- # po: fernfernfern/python-orb@0.0.10  # External orb for Python jobs
+  python: circleci/python@2  # Official CircleCI Python orb
+  # po: fernfernfern/python-orb@0.0.10  # External orb for Python jobs
   #build: orbs/build-python/orb.yml
   #testing: orbs/testing-python/orb.yml 
 
@@ -11,7 +11,7 @@ jobs:
       - image: cimg/python:3.8-node
     steps:
       - checkout
-      - python/install-packages
+      - python/install-packages  # Using the Python orb to install packages from requirements.txt
       - run:
           name: Install Build Dependencies
           command: pip install build  # This installs the build tool to create packages
@@ -21,7 +21,7 @@ jobs:
       - store_artifacts:
           path: dist  # Store the built package as an artifact
 
- test-python:
+  test-python:  # Correct indentation here
     docker:
       - image: cimg/python:3.8-node
     steps:
