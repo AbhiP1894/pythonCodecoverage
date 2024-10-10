@@ -27,7 +27,7 @@ jobs:
     steps:
       - checkout
       - python/install-packages
-      - po/python-job:
+      - python/python-job:
           test-steps: |
             pip install coverage
             coverage run -m unittest discover -s tests -p "*.py"  # Run tests with coverage
