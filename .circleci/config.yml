@@ -21,27 +21,28 @@ jobs:
       - store_artifacts:
           path: dist  # Store the built package as an artifact
 
-  test-python:
+ test-python:
     docker:
       - image: cimg/python:3.8-node
     steps:
       - checkout
-      - python/install-packages
-      - python/python-job:
-          test-steps: |
-            pip install coverage
+      - python/install-packages  # Using the Python orb to install packages from requirements.txt
+      - run:
+          name: Install Test and Coverage Dependencies
+          command: |
+            pip install coverage  # Install coverage for tracking test coverage
+      - run:
+          name: Run Unit Tests and Coverage
+          command: |
             coverage run -m unittest discover -s tests -p "*.py"  # Run tests with coverage
-            coverage xml
-            coverage html
-          with-pip: true
-
+            coverage xml  # Generate coverage XML report
+            coverage html  # Generate HTML coverage report
       - store_test_results:
-          path: test-results  # Store test results
-
+          path: test-results  # Store test results (make sure to create this directory if it doesn't exist)
       - store_artifacts:
-          path: coverage.xml  # Store the coverage report as an artifact
+          path: coverage.xml  # Store the coverage XML report as an artifact
       - store_artifacts:
-          path: htmlcov  # Store the entire HTML coverage report directory as an artifact
+          path: htmlcov  # Store the HTML coverage report directory as an artifact
 
 workflows:
   build-and-test:
