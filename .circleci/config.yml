@@ -10,7 +10,6 @@ jobs:
     docker:
       - image: cimg/python:3.8-node
     steps:
-      - checkout
       - python/install-packages  # Using the Python orb to install packages from requirements.txt
       - run:
           name: Install Build Dependencies
